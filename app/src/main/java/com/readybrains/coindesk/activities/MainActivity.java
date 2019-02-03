@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         }
+        if(id==R.id.action_search){
+            Intent intent = new Intent(this,SearchActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
