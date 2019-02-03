@@ -15,27 +15,27 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".activities.MainActivity" />
-
-        <activity android:name=".activities.AboutActivity"
+        <activity
+            android:name=".activities.AboutActivity"
             android:label="About"
-            android:parentActivityName=".activities.MainActivity"/>
-
-        <activity android:name=".activities.CurrencyConverter"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.CurrencyConverter"
             android:label="Currency Converter"
             android:parentActivityName=".activities.MainActivity" />
-
-        <activity android:name=".activities.ChangelogActivity"
+        <activity
+            android:name=".activities.ChangelogActivity"
             android:label="Changelog"
-            android:parentActivityName=".activities.MainActivity"/>
-
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.SearchActivity"></activity>
     </application>
 
 </manifest>
