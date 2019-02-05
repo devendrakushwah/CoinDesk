@@ -6,15 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
             android:id="@+id/nav_currency"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Currency Converters" />
+            android:icon="@drawable/ic_dollar"
+            android:title="Currency Converter" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_settings"
             android:title="Settings" />
     </group>
 
@@ -26,15 +26,15 @@
                 android:title="Share" />
             <item
                 android:id="@+id/nav_rate"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Rate" />
+                android:icon="@drawable/ic_rate_review"
+                android:title="Rate/Review" />
             <item
                 android:id="@+id/nav_changelog"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_changelog"
                 android:title="ChangeLog" />
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_about"
                 android:title="About" />
         </menu>
     </item>
