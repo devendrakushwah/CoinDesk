@@ -1,6 +1,7 @@
 package com.readybrains.coindesk.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,7 @@ public class NewsFragment extends Fragment {
     private ArrayList<News> mExampleList;
     private RequestQueue mRequestQueue;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    ProgressDialog progressBar ;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -54,6 +56,8 @@ public class NewsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSwipeRefreshLayout=view.findViewById(R.id.swipe_news);
 
+        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
@@ -64,6 +68,7 @@ public class NewsFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // Refresh items
+                progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                 parseJSON();
 
                 mExampleList.clear();
@@ -101,6 +106,7 @@ public class NewsFragment extends Fragment {
 
                             mExampleAdapter = new NewsAdapter(getActivity(), mExampleList);
                             mRecyclerView.setAdapter(mExampleAdapter);
+                            progressBar.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -109,10 +115,12 @@ public class NewsFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
                 Snackbar.make(getActivity().findViewById(android.R.id.content),
                         "Problem with internet connection", 10000).setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                         parseJSON();
                     }
                 }).show();

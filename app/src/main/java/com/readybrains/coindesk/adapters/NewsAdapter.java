@@ -2,7 +2,6 @@ package com.readybrains.coindesk.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,8 +50,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ExampleViewHol
         holder.mTextViewTime.setText(date.substring(11,date.length()));
 
         Picasso.get().load(image).into(holder.mImageView);
-        Log.d("URL : ",image);
-        Picasso.get().setLoggingEnabled(true);
+        //Log.d("URL : ",image);
+        //Picasso.get().setLoggingEnabled(true);
 
         holder.mNewsView.setOnClickListener(new View.OnClickListener() {
             @Override

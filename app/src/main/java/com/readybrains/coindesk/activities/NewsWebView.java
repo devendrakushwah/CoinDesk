@@ -1,5 +1,6 @@
 package com.readybrains.coindesk.activities;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -22,5 +23,19 @@ public class NewsWebView extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(false);
         myWebView.loadUrl(url);
-    }
-}
+
+        final ProgressDialog progressBar = ProgressDialog.show(this, "", "Loading...");
+
+        myWebView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            public void onPageFinished(WebView view, String url) {
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+
+            }
+        });}}
