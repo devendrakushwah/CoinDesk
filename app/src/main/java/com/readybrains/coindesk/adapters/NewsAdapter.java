@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.readybrains.coindesk.R;
+import com.readybrains.coindesk.activities.NewsWebView;
 import com.readybrains.coindesk.models.News;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +47,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ExampleViewHol
 
         holder.mTextViewTitle.setText(title);
         holder.mTextViewSource.setText(source);
-        holder.mTextViewDate.setText(date);
+        holder.mTextViewDate.setText(date.substring(0,10));
+        holder.mTextViewTime.setText(date.substring(11,date.length()));
 
         Picasso.get().load(image).into(holder.mImageView);
         Log.d("URL : ",image);
@@ -56,7 +57,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ExampleViewHol
         holder.mNewsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Intent browserIntent = new Intent(mContext,NewsWebView.class);
+                browserIntent.putExtra("url",url);
                 mContext.startActivity(browserIntent);
             }
         });
@@ -72,6 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ExampleViewHol
         public TextView mTextViewTitle;
         public TextView mTextViewSource;
         public TextView mTextViewDate;
+        public TextView mTextViewTime;
         public CardView mNewsView;
 
         public ExampleViewHolder(View itemView) {
@@ -80,6 +83,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ExampleViewHol
             mTextViewTitle = itemView.findViewById(R.id.news_title);
             mTextViewSource = itemView.findViewById(R.id.news_source);
             mTextViewDate = itemView.findViewById(R.id.news_date);
+            mTextViewTime = itemView.findViewById(R.id.news_time);
             mNewsView = itemView.findViewById(R.id.news_view);
         }
     }

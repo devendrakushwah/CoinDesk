@@ -38,20 +38,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp">
+                android:orientation="vertical"
+                android:layout_marginTop="6dp">
 
                 <TextView
                     android:id="@+id/news_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Source" />
+                    android:text="Source"
+                    android:textSize="12dp"/>
                 <TextView
+                    android:layout_marginTop="4dp"
                     android:id="@+id/news_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:text="Date" />
+                <TextView
+                    android:id="@+id/news_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
