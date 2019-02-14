@@ -2,6 +2,7 @@ package com.readybrains.coindesk.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.readybrains.coindesk.activities.NewsWebView;
 import com.readybrains.coindesk.models.Coins;
 import com.squareup.picasso.Picasso;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -42,24 +45,34 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         String rank = currentItem.getRank();
         String symbol = currentItem.getSymbol();
         String name = currentItem.getName();
-        String price = currentItem.getPrice();
+        String price_string = currentItem.getPrice();
         String change_day = currentItem.getChange_day();
         String image = currentItem.getImage();
 
+        DecimalFormat df = new DecimalFormat("#.#####");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         holder.mTextViewName.setText(name+" ("+symbol+")");
-        holder.mTextViewPrice.setText(price);
-        holder.mTextViewChangeDay.setText(change_day);
+        float price=Float.parseFloat(price_string);
+        holder.mTextViewPrice.setText("Price : "+df.format(price));
+        holder.mTextViewChangeDay.setText("Change(24h) : "+change_day+"%");
+        if(change_day.charAt(0)=='-'){
+            holder.mTextViewChangeDay.setTextColor(Color.RED);
+        }else {
+            holder.mTextViewChangeDay.setTextColor(Color.parseColor("#4BB543"));
+        }
+
         holder.mTextViewRank.setText(rank);
 
         Picasso.get().load(image).into(holder.mImageView);
-        Log.d("Coins URL : ",image);
-        Picasso.get().setLoggingEnabled(true);
+       // Log.d("Coins URL : ",image);
+        //Picasso.get().setLoggingEnabled(true);
 
         holder.mCoinsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(mContext,NewsWebView.class);
-                browserIntent.putExtra("url","google.com");
+                browserIntent.putExtra("url","https://www.google.com");
                 mContext.startActivity(browserIntent);
             }
         });
