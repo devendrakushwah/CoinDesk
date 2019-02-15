@@ -2,7 +2,9 @@ package com.readybrains.coindesk.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,7 +40,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
     }
 
     @Override
-    public void onBindViewHolder(ExampleViewHolder holder, int position) {
+    public void onBindViewHolder(final ExampleViewHolder holder, int position) {
         Coins currentItem = mExampleList.get(position);
 
         String id = currentItem.getId();
@@ -52,14 +54,19 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         DecimalFormat df = new DecimalFormat("#.#####");
         df.setRoundingMode(RoundingMode.CEILING);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String currency = sharedPreferences.getString("currency",null);
+
         holder.mTextViewName.setText(name+" ("+symbol+")");
         float price=Float.parseFloat(price_string);
-        holder.mTextViewPrice.setText("Price : "+df.format(price));
-        holder.mTextViewChangeDay.setText("Change(24h) : "+change_day+"%");
+        holder.mTextViewPrice.setText("Price : "+df.format(price)+" "+currency);
+        holder.mTextViewChangeDay.setText(change_day+"%");
         if(change_day.charAt(0)=='-'){
             holder.mTextViewChangeDay.setTextColor(Color.RED);
+            holder.mImageViewIncDesc.setImageResource(R.drawable.decrease);
         }else {
             holder.mTextViewChangeDay.setTextColor(Color.parseColor("#4BB543"));
+            holder.mImageViewIncDesc.setImageResource(R.drawable.increase);
         }
 
         holder.mTextViewRank.setText(rank);
@@ -67,7 +74,12 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         Picasso.get().load(image).into(holder.mImageView);
        // Log.d("Coins URL : ",image);
         //Picasso.get().setLoggingEnabled(true);
-
+        holder.mImageViewFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.mImageViewFavourite.setImageResource(R.drawable.favourite);
+            }
+        });
         holder.mCoinsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +88,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
                 mContext.startActivity(browserIntent);
             }
         });
+
     }
 
     @Override
@@ -90,6 +103,8 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         public TextView mTextViewPrice;
         public TextView mTextViewChangeDay;
         public CardView mCoinsView;
+        public ImageView mImageViewFavourite;
+        public ImageView mImageViewIncDesc;
 
         public ExampleViewHolder(View itemView) {
             super(itemView);
@@ -99,6 +114,8 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
             mTextViewPrice = itemView.findViewById(R.id.home_coin_price);
             mTextViewChangeDay = itemView.findViewById(R.id.home_day_change);
             mCoinsView = itemView.findViewById(R.id.home_coin_view);
+            mImageViewFavourite=itemView.findViewById(R.id.home_favourite);
+            mImageViewIncDesc=itemView.findViewById(R.id.home_increase_decrease);
         }
     }
 }

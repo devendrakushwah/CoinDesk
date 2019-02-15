@@ -2,7 +2,9 @@ package com.readybrains.coindesk.fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -86,7 +88,11 @@ public class CoinsFragment extends Fragment {
     }
 
     private void parseJSON() {
-        String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange=INR";
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String currency = sharedPreferences.getString("currency",null);
+
+        String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
 
 
         //Toast.makeText(getActivity(), "non", Toast.LENGTH_SHORT).show();
