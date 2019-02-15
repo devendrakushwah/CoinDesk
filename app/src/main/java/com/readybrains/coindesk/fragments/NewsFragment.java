@@ -1,7 +1,9 @@
 package com.readybrains.coindesk.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ public class NewsFragment extends Fragment {
     private ArrayList<News> mExampleList;
     private RequestQueue mRequestQueue;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    ProgressDialog progressBar ;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -53,6 +56,8 @@ public class NewsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSwipeRefreshLayout=view.findViewById(R.id.swipe_news);
 
+        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
@@ -63,6 +68,7 @@ public class NewsFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // Refresh items
+                progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                 parseJSON();
 
                 mExampleList.clear();
@@ -77,29 +83,30 @@ public class NewsFragment extends Fragment {
     }
 
     private void parseJSON() {
-        String url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=77e21907a80700fb0fcee2f5690baa7183392fbdb72569bf52a004ef3b4b40cc";
+        String url = "http://devendra8112.pythonanywhere.com/api/get_news/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray("Data");
+                            JSONArray jsonArray = response.getJSONArray("data");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject hit = jsonArray.getJSONObject(i);
 
                                 String title = hit.getString("title");
-                                String image = hit.getString("imageurl");
-                                String url = hit.getString("guid");
-                                //String source = hit.getString("source");
-                                String date = hit.getString("published_on");
+                                String image = hit.getString("image");
+                                String url = hit.getString("url");
+                                String source = hit.getString("source");
+                                String date = hit.getString("date");
 
-                                mExampleList.add(new News(title,image,url,date,"CNN"));
+                                mExampleList.add(new News(title,image,url,date,source));
                             }
 
                             mExampleAdapter = new NewsAdapter(getActivity(), mExampleList);
                             mRecyclerView.setAdapter(mExampleAdapter);
+                            progressBar.dismiss();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -108,7 +115,15 @@ public class NewsFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                progressBar.dismiss();
+                Snackbar.make(getActivity().findViewById(android.R.id.content),
+                        "Problem with internet connection", 10000).setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
+                        parseJSON();
+                    }
+                }).show();
             }
         });
 

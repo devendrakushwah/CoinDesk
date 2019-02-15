@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.readybrains.coindesk">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,13 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+=======
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> 0f7aa0c36f9fb19e52f99c797446595f2addc913
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Settings"
@@ -33,9 +37,21 @@
             android:name=".activities.ChangelogActivity"
             android:label="Changelog"
             android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.SearchActivity" />
+        <activity
+            android:name=".activities.NewsWebView"
+            android:label="News"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".activities.SearchActivity">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +62,10 @@
 
         <activity android:name=".activities.SignUpActivity"></activity>
 
+=======
+        <activity android:name=".activities.DetailsActivity"
+            android:parentActivityName=".activities.MainActivity"></activity>
+>>>>>>> 0f7aa0c36f9fb19e52f99c797446595f2addc913
     </application>
 
 </manifest>
