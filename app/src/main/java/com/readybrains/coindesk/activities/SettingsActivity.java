@@ -34,8 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.commit();
                 Snackbar.make(parent,"Default currency changed to "+selectedItem,Snackbar.LENGTH_SHORT).show();
             }
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
