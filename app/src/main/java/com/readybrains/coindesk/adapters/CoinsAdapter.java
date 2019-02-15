@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.readybrains.coindesk.R;
+import com.readybrains.coindesk.activities.DetailsActivity;
 import com.readybrains.coindesk.activities.NewsWebView;
 import com.readybrains.coindesk.models.Coins;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
 
     @Override
     public void onBindViewHolder(final ExampleViewHolder holder, int position) {
-        Coins currentItem = mExampleList.get(position);
+        final Coins currentItem = mExampleList.get(position);
 
         String id = currentItem.getId();
         String rank = currentItem.getRank();
@@ -82,9 +83,9 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         holder.mCoinsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(mContext,NewsWebView.class);
-                browserIntent.putExtra("url","https://www.google.com");
-                mContext.startActivity(browserIntent);
+                Intent detailsIntent = new Intent(mContext,DetailsActivity.class);
+                detailsIntent.putExtra("id",currentItem.getId());
+                mContext.startActivity(detailsIntent);
             }
         });
 
