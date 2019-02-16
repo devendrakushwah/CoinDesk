@@ -2,7 +2,6 @@
 <resources>
     <color name="colorPrimary">#0077b5</color>
     <color name="colorPrimaryDark">#0077b5</color>
-<<<<<<< HEAD
     <color name="colorAccent">#D81B60</color>
     <color name="primary">#E43F3F</color>
     <color name="primary_dark">#E12929</color>
@@ -17,9 +16,6 @@
     <color name="aluminum">#999999</color>
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
-    <color name="white">#FFFFFF</color>
-=======
-    <color name="colorAccent">#0077b5</color>
     <color name="line">#4d4d4d</color>
->>>>>>> 0f7aa0c36f9fb19e52f99c797446595f2addc913
+    <color name="white">#FFFFFF</color>
 </resources>
