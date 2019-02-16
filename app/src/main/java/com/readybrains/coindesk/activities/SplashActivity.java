@@ -21,11 +21,11 @@ public class SplashActivity extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.splash);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String currency = sharedPreferences.getString("currency",null);
+        String currency = sharedPreferences.getString("defaultCurrency",null);
         if(currency==null)
         {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("currency","USD");
+            editor.putString("defaultCurrency","USD");
             editor.commit();
             Snackbar.make(relativeLayout,"Default currency set to USD. You can change it from settings.",Snackbar.LENGTH_SHORT).show();
         }
