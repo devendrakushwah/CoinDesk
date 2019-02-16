@@ -3,8 +3,10 @@ package com.readybrains.coindesk.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,8 +72,6 @@ public class CoinsFragment extends Fragment {
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
         parseJSON();
-
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,14 +90,8 @@ public class CoinsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mRecyclerView.removeAllViews();
-    }
-
     private void parseJSON() {
-
+        mSwipeRefreshLayout.setRefreshing(false);
         String currency = getActivity().getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
@@ -134,6 +128,7 @@ public class CoinsFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
                 progressBar.dismiss();
                 Snackbar.make(getActivity().findViewById(android.R.id.content),
                         "Problem with internet connection", 10000).setAction("RETRY", new View.OnClickListener() {

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.readybrains.coindesk.R;
 import com.readybrains.coindesk.activities.DetailsActivity;
@@ -103,6 +102,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
                     editor.commit();
                     Log.d("Done",temp.toString());
                     Snackbar.make(v,name+" removed from favourites",Snackbar.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
                 }
                 else {
                     holder.mImageViewFavourite.setImageResource(R.drawable.favourite);
@@ -116,7 +116,6 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
                     Log.d("Done",temp.toString());
                     Snackbar.make(v,name+" added to favourites",Snackbar.LENGTH_SHORT).show();
                 }
-                notifyDataSetChanged();
             }
         });
         holder.mCoinsView.setOnClickListener(new View.OnClickListener() {
