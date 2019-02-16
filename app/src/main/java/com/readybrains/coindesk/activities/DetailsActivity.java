@@ -1,5 +1,6 @@
 package com.readybrains.coindesk.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,11 +8,12 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,16 +41,18 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView coinImage,img1,img2,img3;
     TextView rankText,priceText,tSupply,mSupply,cSupply;
     String rank,symbol,name,price,total_supply,max_supply,circulating_supply,change_hour,change_day,change_week,image;
-    ImageView google;
+    CardView google;
+    ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        progressBar = ProgressDialog.show(this, "", "Loading...");
         setContentView(R.layout.activity_details);
         coinImage = findViewById(R.id.details_image);
         detailsLayout = findViewById(R.id.details_layout);
-        google=findViewById(R.id.google_search);
+        google=findViewById(R.id.details_title);
 
         //Initialise views here
 
@@ -118,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                                 //for hour Change
-                                hourChange.setText(change_hour);
+                                hourChange.setText(change_hour+"%");
                                 if(change_hour.charAt(0)=='-'){
                                     hourChange.setTextColor(Color.RED);
                                     img1.setImageResource(R.drawable.decrease);
@@ -129,7 +133,7 @@ public class DetailsActivity extends AppCompatActivity {
                                 }
 
                                 //for day Change
-                                dayChange.setText(change_day);
+                                dayChange.setText(change_day+"%");
                                 if(change_day.charAt(0)=='-'){
                                     dayChange.setTextColor(Color.RED);
                                     img2.setImageResource(R.drawable.decrease);
@@ -140,7 +144,7 @@ public class DetailsActivity extends AppCompatActivity {
                                 }
 
                                 //for week Change
-                                weekChange.setText(change_week);
+                                weekChange.setText(change_week+"%");
                                 if(change_week.charAt(0)=='-'){
                                     weekChange.setTextColor(Color.RED);
                                     img3.setImageResource(R.drawable.decrease);
@@ -167,15 +171,22 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                                 Picasso.get().load(image).into(coinImage);
+                                progressBar.dismiss();
                             }
                         } catch (JSONException e) {
+                            progressBar.dismiss();
+                            Snackbar.make(detailsLayout,"Something went wrong, Go back.",Snackbar.LENGTH_LONG);
                             e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(detailsLayout,"Something went wrong, Go back.",Snackbar.LENGTH_SHORT);
+                Toast.makeText(DetailsActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                progressBar.dismiss();
+                Intent main=new Intent(DetailsActivity.this,MainActivity.class);
+                startActivity(main);
+                finish();
             }
         });
         mRequestQueue.add(request);

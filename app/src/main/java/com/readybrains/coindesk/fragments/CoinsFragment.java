@@ -89,9 +89,6 @@ public class CoinsFragment extends Fragment {
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
 
-
-        //Toast.makeText(getActivity(), "non", Toast.LENGTH_SHORT).show();
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
