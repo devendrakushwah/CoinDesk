@@ -7,15 +7,22 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.readybrains.coindesk.R;
 
 public class NewsWebView extends AppCompatActivity {
 
     private WebView myWebView;
+    AdView newsWebAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_web_view);
+
+        newsWebAdView = findViewById(R.id.newsWebAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        newsWebAdView.loadAd(adRequest);
 
         String url = getIntent().getStringExtra("url");
         myWebView = (WebView) findViewById(R.id.news_web_view);

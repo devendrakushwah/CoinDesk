@@ -2,9 +2,7 @@ package com.readybrains.coindesk.fragments;
 
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.readybrains.coindesk.R;
 import com.readybrains.coindesk.adapters.CoinsAdapter;
 import com.readybrains.coindesk.models.Coins;
@@ -36,6 +36,7 @@ import static com.readybrains.coindesk.activities.SplashActivity.DB;
  */
 public class CoinsFragment extends Fragment {
 
+    AdView homeAdView;
     private RecyclerView mRecyclerView;
     private CoinsAdapter mExampleAdapter;
     private ArrayList<Coins> mExampleList;
@@ -53,6 +54,10 @@ public class CoinsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_coins, container, false);
+
+        homeAdView = view.findViewById(R.id.homeAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        homeAdView.loadAd(adRequest);
 
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
         mRecyclerView.setHasFixedSize(true);
