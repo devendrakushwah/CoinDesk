@@ -1,9 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DetailsActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.DetailsActivity"
+    android:id="@+id/details_layout"
+    android:background="#60d0d0d0">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details_inc_desc"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        app:cardCornerRadius="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change(1H) : "/>
+                <ImageView
+                    android:layout_toLeftOf="@+id/details_hour_text"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/details_img1"/>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/details_hour_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change(24H) : "/>
+                <ImageView
+                    android:layout_toLeftOf="@+id/details_day_text"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/details_img2"/>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/details_day_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change(1W) : "/>
+                <ImageView
+                    android:layout_toLeftOf="@+id/details_week_text"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="2dp"
+                    android:id="@+id/details_img3"/>
+                <TextView
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/details_week_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:id="@+id/details_title"
+        android:layout_below="@+id/details_inc_desc"
+        app:cardCornerRadius="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:background="@color/colorPrimaryDark">
+            <ImageView
+                android:id="@+id/details_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/details_name"
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:text="XXX"
+                android:layout_toRightOf="@+id/details_image"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/details_symbol"
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:text="(XXX)"
+                android:layout_toRightOf="@+id/details_name"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/google_search"
+                android:src="@drawable/ic_search_white"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details_info"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_below="@+id/details_title">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rank"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details_rank"
+                    android:text="XX"
+                    android:layout_alignParentRight="true"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details_price"
+                    android:text="XXXXXX"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Supply"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details_totalsupply"
+                    android:text="XXXXXX"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Max Supply"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details_maxsupply"
+                    android:text="XXXXXX"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_margin="4dp"
+                android:background="@color/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Circulating Supply"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/details_csupply"
+                    android:text="XXXXXX"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add to Favourites"
+        android:layout_margin="14dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:id="@+id/details_fav_btn"
+        android:background="@drawable/details_favourite_btn"/>
+
+</RelativeLayout>

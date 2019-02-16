@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.readybrains.coindesk.R;
 import com.readybrains.coindesk.activities.DetailsActivity;
-import com.readybrains.coindesk.activities.NewsWebView;
 import com.readybrains.coindesk.models.Coins;
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +54,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         df.setRoundingMode(RoundingMode.CEILING);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String currency = sharedPreferences.getString("currency",null);
+        String currency = sharedPreferences.getString("defaultCurrency","USD");
 
         holder.mTextViewName.setText(name+" ("+symbol+")");
         float price=Float.parseFloat(price_string);
@@ -72,8 +71,6 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         holder.mTextViewRank.setText(rank);
 
         Picasso.get().load(image).into(holder.mImageView);
-       // Log.d("Coins URL : ",image);
-        //Picasso.get().setLoggingEnabled(true);
         holder.mImageViewFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
