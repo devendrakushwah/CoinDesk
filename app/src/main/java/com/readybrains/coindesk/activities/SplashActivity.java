@@ -7,8 +7,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import com.readybrains.coindesk.R;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class SplashActivity extends AppCompatActivity {
 
     RelativeLayout relativeLayout;
@@ -25,8 +30,18 @@ public class SplashActivity extends AppCompatActivity {
         if(currency==null)
         {
             editor.putString("defaultCurrency","USD");
-            editor.commit();
+            editor.apply();
             Snackbar.make(relativeLayout,"Default currency set to USD. You can change it from settings.",Snackbar.LENGTH_SHORT).show();
+        }
+
+        Set<String> favourites= getSharedPreferences(DB,MODE_PRIVATE).getStringSet("userFavourites",null);
+        //Log.d("Favs-splash",favourites.toString());
+        if(favourites==null){
+            Log.d("CALLED SPLASH FAV","CALLED SPLASH FAV");
+            Set<String> temp=new HashSet<>();
+            temp.add("0");
+            editor.putStringSet("userFavourites",temp);
+            editor.apply();
         }
 
         new Handler().postDelayed(new Runnable() {

@@ -56,7 +56,7 @@ public class CoinsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_coins, container, false);
 
         homeAdView = view.findViewById(R.id.homeAdView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E8A954F5967725CD05B121150830F6F6").build();
         homeAdView.loadAd(adRequest);
 
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
@@ -88,6 +88,12 @@ public class CoinsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRecyclerView.removeAllViews();
     }
 
     private void parseJSON() {
