@@ -28,6 +28,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.readybrains.coindesk.activities.SplashActivity.DB;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -84,8 +87,7 @@ public class CoinsFragment extends Fragment {
 
     private void parseJSON() {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        String currency = sharedPreferences.getString("currency",null);
+        String currency = getActivity().getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
 

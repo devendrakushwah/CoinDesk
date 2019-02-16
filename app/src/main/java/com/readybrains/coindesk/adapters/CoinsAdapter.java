@@ -22,6 +22,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.readybrains.coindesk.activities.SplashActivity.DB;
+
 
 public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewHolder> {
     private Context mContext;
@@ -53,8 +56,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         DecimalFormat df = new DecimalFormat("#.#####");
         df.setRoundingMode(RoundingMode.CEILING);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String currency = sharedPreferences.getString("defaultCurrency","USD");
+        String currency = mContext.getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency","USD");
 
         holder.mTextViewName.setText(name+" ("+symbol+")");
         float price=Float.parseFloat(price_string);

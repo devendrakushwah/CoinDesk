@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,7 +34,7 @@ import java.text.DecimalFormat;
 
 public class DetailsActivity extends AppCompatActivity {
 
-
+    AdView detailsAdView;
     RequestQueue mRequestQueue;
     RelativeLayout detailsLayout;
     TextView detailsName, detailsSymbol;
@@ -44,15 +45,21 @@ public class DetailsActivity extends AppCompatActivity {
     CardView google;
     ProgressDialog progressBar;
 
+    String DB = SplashActivity.DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         progressBar = ProgressDialog.show(this, "", "Loading...");
         setContentView(R.layout.activity_details);
         coinImage = findViewById(R.id.details_image);
         detailsLayout = findViewById(R.id.details_layout);
         google=findViewById(R.id.details_title);
+
+        detailsAdView = findViewById(R.id.detailsAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        detailsAdView.loadAd(adRequest);
+
 
         //Initialise views here
 
@@ -78,8 +85,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         String id=i.getStringExtra("id");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        final String currency = sharedPreferences.getString("defaultCurrency",null);
+        final String currency = getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_details/?id="+id+"&exchange="+currency;
 
