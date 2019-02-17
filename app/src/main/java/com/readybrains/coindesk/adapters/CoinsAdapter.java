@@ -123,6 +123,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
             public void onClick(View v) {
                 Intent detailsIntent = new Intent(mContext,DetailsActivity.class);
                 detailsIntent.putExtra("id",currentItem.getId());
+                detailsIntent.putExtra("source","nonsearch");
                 mContext.startActivity(detailsIntent);
             }
         });

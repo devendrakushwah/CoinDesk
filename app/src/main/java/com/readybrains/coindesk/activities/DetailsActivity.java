@@ -96,6 +96,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         final String id=i.getStringExtra("id");
+        if(i.getStringExtra("source").equals("search")){
+            favBtn.setVisibility(View.INVISIBLE);
+        }
         final String currency = getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_details/?id="+id+"&exchange="+currency;

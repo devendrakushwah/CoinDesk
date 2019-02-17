@@ -3,13 +3,12 @@ package com.readybrains.coindesk.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,6 @@ public class CoinsFragment extends Fragment {
     ProgressDialog progressBar ;
 
     public CoinsFragment() {
-        // Required empty public constructor
     }
 
 
@@ -78,11 +76,9 @@ public class CoinsFragment extends Fragment {
                 // Refresh items
                 progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                 parseJSON();
-
                 mExampleList.clear();
                 mRecyclerView.removeAllViews();
                 mExampleAdapter.notifyDataSetChanged();
-
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -91,7 +87,7 @@ public class CoinsFragment extends Fragment {
     }
 
     private void parseJSON() {
-        mSwipeRefreshLayout.setRefreshing(false);
+       // mSwipeRefreshLayout.setRefreshing(false);
         String currency = getActivity().getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
@@ -101,6 +97,7 @@ public class CoinsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("API","Called");
                             JSONArray jsonArray = response.getJSONArray("data");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
