@@ -8,8 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
@@ -26,11 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-          android:theme="@style/AppTheme.NoActionBar" />
-  
-=======
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+     
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8388653056574690~8920667624" />
@@ -40,7 +36,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
->>>>>>> 835488f6fcb811320a2bc5759959ac58eb880aaf
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Settings"
@@ -54,13 +49,13 @@
         <activity
             android:name=".activities.ChangelogActivity"
             android:label="Changelog"
-<<<<<<< HEAD
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.SignUpActivity"></activity>
         <activity android:name=".activities.SearchActivity">
-=======
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".activities.SignUpActivity"></activity>
+        <activity android:name=".activities.SearchActivity">
+
+     
         <activity
             android:name=".activities.NewsWebView"
             android:label="News"
@@ -75,7 +70,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
->>>>>>> 835488f6fcb811320a2bc5759959ac58eb880aaf
         </activity>
         <activity android:name=".activities.NewsWebView"></activity>
         <activity android:name=".activities.NewsWebView"></activity>
