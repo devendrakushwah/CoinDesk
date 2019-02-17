@@ -4,17 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,10 +31,12 @@ import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Set;
+
 
 public class DetailsActivity extends AppCompatActivity {
 
-
+    AdView detailsAdView;
     RequestQueue mRequestQueue;
     RelativeLayout detailsLayout;
     TextView detailsName, detailsSymbol;
@@ -43,18 +46,27 @@ public class DetailsActivity extends AppCompatActivity {
     String rank,symbol,name,price,total_supply,max_supply,circulating_supply,change_hour,change_day,change_week,image;
     CardView google;
     ProgressDialog progressBar;
+    Button favBtn;
+
+    String DB = SplashActivity.DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         progressBar = ProgressDialog.show(this, "", "Loading...");
         setContentView(R.layout.activity_details);
         coinImage = findViewById(R.id.details_image);
         detailsLayout = findViewById(R.id.details_layout);
         google=findViewById(R.id.details_title);
 
+        detailsAdView = findViewById(R.id.detailsAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        detailsAdView.loadAd(adRequest);
+
+
         //Initialise views here
+
+        favBtn=findViewById(R.id.details_fav_btn);
 
         hourChange = findViewById(R.id.details_hour_text);
         dayChange = findViewById(R.id.details_day_text);
@@ -76,10 +88,18 @@ public class DetailsActivity extends AppCompatActivity {
 
         mRequestQueue = Volley.newRequestQueue(this);
 
+
+        final SharedPreferences.Editor editor = getSharedPreferences(DB,MODE_PRIVATE).edit();
+
+        final Set<String> favourites= getSharedPreferences(DB,MODE_PRIVATE).getStringSet("userFavourites",null);
+
+
         Intent i = getIntent();
-        String id=i.getStringExtra("id");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        final String currency = sharedPreferences.getString("defaultCurrency",null);
+        final String id=i.getStringExtra("id");
+        if(i.getStringExtra("source").equals("search")){
+            favBtn.setVisibility(View.INVISIBLE);
+        }
+        final String currency = getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_details/?id="+id+"&exchange="+currency;
 
@@ -171,6 +191,36 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                                 Picasso.get().load(image).into(coinImage);
+
+                                if(favourites.contains(id)){
+                                    favBtn.setText("Remove from favourites");
+                                }
+
+                                favBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if(favourites.contains(id)){
+                                            favBtn.setText("Add to favourites");
+                                            Set<String> temp=favourites;
+                                            temp.remove(id);
+                                            editor.remove("userFavourites");
+                                            editor.commit();
+                                            editor.putStringSet("userFavourites",temp);
+                                            editor.commit();
+                                            Snackbar.make(detailsLayout,name+" removed from favourites",Snackbar.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            favBtn.setText("Remove from favourites");
+                                            Set<String> temp=favourites;
+                                            temp.add(id);
+                                            editor.remove("userFavourites");
+                                            editor.commit();
+                                            editor.putStringSet("userFavourites",temp);
+                                            editor.commit();
+                                            Snackbar.make(detailsLayout,name+" added to favourites",Snackbar.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                                 progressBar.dismiss();
                             }
                         } catch (JSONException e) {

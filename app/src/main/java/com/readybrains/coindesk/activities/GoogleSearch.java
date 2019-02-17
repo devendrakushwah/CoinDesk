@@ -7,15 +7,20 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.readybrains.coindesk.R;
 
 public class GoogleSearch extends AppCompatActivity {
 
     private WebView myWebView;
+    AdView googleWebAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_search);
+
+        googleWebAdView=findViewById(R.id.googleSearchAdView);
 
         String url = getIntent().getStringExtra("url");
         myWebView = (WebView) findViewById(R.id.google_web_view);
@@ -23,6 +28,9 @@ public class GoogleSearch extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(false);
         myWebView.loadUrl(url);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        googleWebAdView.loadAd(adRequest);
 
         final ProgressDialog progressBar = ProgressDialog.show(this, "", "Loading...");
 

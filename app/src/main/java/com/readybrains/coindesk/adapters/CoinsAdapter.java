@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,10 @@ import com.squareup.picasso.Picasso;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.readybrains.coindesk.activities.SplashActivity.DB;
 
 
 public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewHolder> {
@@ -42,10 +47,11 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
     public void onBindViewHolder(final ExampleViewHolder holder, int position) {
         final Coins currentItem = mExampleList.get(position);
 
-        String id = currentItem.getId();
+        holder.setIsRecyclable(false);
+        final String id = currentItem.getId();
         String rank = currentItem.getRank();
         String symbol = currentItem.getSymbol();
-        String name = currentItem.getName();
+        final String name = currentItem.getName();
         String price_string = currentItem.getPrice();
         String change_day = currentItem.getChange_day();
         String image = currentItem.getImage();
@@ -53,8 +59,12 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         DecimalFormat df = new DecimalFormat("#.#####");
         df.setRoundingMode(RoundingMode.CEILING);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String currency = sharedPreferences.getString("defaultCurrency","USD");
+        String currency = mContext.getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency","USD");
+        final SharedPreferences.Editor editor = mContext.getSharedPreferences(DB,MODE_PRIVATE).edit();
+
+        final Set<String> Mainfavourites= mContext.getSharedPreferences(DB,MODE_PRIVATE).getStringSet("userFavourites",null);
+
+        Log.d("Fav",Mainfavourites.toString());
 
         holder.mTextViewName.setText(name+" ("+symbol+")");
         float price=Float.parseFloat(price_string);
@@ -71,10 +81,41 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
         holder.mTextViewRank.setText(rank);
 
         Picasso.get().load(image).into(holder.mImageView);
+
+        if(Mainfavourites.contains(id)){
+            holder.mImageViewFavourite.setImageResource(R.drawable.favourite);
+        }
+
+
         holder.mImageViewFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.mImageViewFavourite.setImageResource(R.drawable.favourite);
+                Set<String>favourites=mContext.getSharedPreferences(DB,MODE_PRIVATE).getStringSet("userFavourites",null);
+
+                if(favourites.contains(id)){
+                    holder.mImageViewFavourite.setImageResource(R.drawable.unfavourite);
+                    Set<String>temp=favourites;
+                    temp.remove(id);
+                    editor.remove("userFavourites");
+                    editor.commit();
+                    editor.putStringSet("userFavourites",temp);
+                    editor.commit();
+                    Log.d("Done",temp.toString());
+                    Snackbar.make(v,name+" removed from favourites",Snackbar.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                }
+                else {
+                    holder.mImageViewFavourite.setImageResource(R.drawable.favourite);
+                    SharedPreferences.Editor editor = mContext.getSharedPreferences(DB,MODE_PRIVATE).edit();
+                    Set<String>temp=favourites;
+                    temp.add(id);
+                    editor.remove("userFavourites");
+                    editor.commit();
+                    editor.putStringSet("userFavourites",temp);
+                    editor.commit();
+                    Log.d("Done",temp.toString());
+                    Snackbar.make(v,name+" added to favourites",Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
         holder.mCoinsView.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +123,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
             public void onClick(View v) {
                 Intent detailsIntent = new Intent(mContext,DetailsActivity.class);
                 detailsIntent.putExtra("id",currentItem.getId());
+                detailsIntent.putExtra("source","nonsearch");
                 mContext.startActivity(detailsIntent);
             }
         });
