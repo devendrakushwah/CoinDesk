@@ -90,7 +90,7 @@ public class NewsFragment extends Fragment {
     }
 
     private void parseJSON() {
-        String url = "http://devendra8112.pythonanywhere.com/api/get_news/";
+        String url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=77e21907a80700fb0fcee2f5690baa7183392fbdb72569bf52a004ef3b4b40cc";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

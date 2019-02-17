@@ -2,14 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.readybrains.coindesk">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".activities.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+          android:theme="@style/AppTheme.NoActionBar" />
+
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <meta-data
@@ -21,6 +38,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Settings"
@@ -34,6 +52,9 @@
         <activity
             android:name=".activities.ChangelogActivity"
             android:label="Changelog"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.SignUpActivity"></activity>
+        <activity android:name=".activities.SearchActivity">
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -51,6 +72,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.NewsWebView"></activity>
+        <activity android:name=".activities.NewsWebView"></activity>
         <activity
             android:name=".activities.DetailsActivity"
             android:parentActivityName=".activities.MainActivity"
