@@ -3,6 +3,7 @@ package com.readybrains.coindesk.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.readybrains.coindesk.R;
 
 import butterknife.ButterKnife;
@@ -18,7 +21,6 @@ import butterknife.InjectView;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-
     @InjectView(R.id.input_name)
     EditText _nameText;
     @InjectView(R.id.input_address)
@@ -84,8 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
-
+     
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
