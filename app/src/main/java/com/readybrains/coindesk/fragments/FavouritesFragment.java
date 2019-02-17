@@ -65,11 +65,11 @@ public class FavouritesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSwipeRefreshLayout=view.findViewById(R.id.swipe_favourite);
 
-        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
 
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
+        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
         parseJSON();
 
 
@@ -79,7 +79,6 @@ public class FavouritesFragment extends Fragment {
                 // Refresh items
                 progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                 parseJSON();
-
                 mExampleList.clear();
                 mRecyclerView.removeAllViews();
                 mExampleAdapter.notifyDataSetChanged();

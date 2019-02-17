@@ -48,7 +48,6 @@ public class CoinsFragment extends Fragment {
     public CoinsFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,12 +62,10 @@ public class CoinsFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSwipeRefreshLayout=view.findViewById(R.id.swipe_home);
-
-       progressBar = ProgressDialog.show(getContext(), "", "Loading...");
-
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
+        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
         parseJSON();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
