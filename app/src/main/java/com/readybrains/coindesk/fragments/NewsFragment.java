@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.readybrains.coindesk.R;
 import com.readybrains.coindesk.adapters.NewsAdapter;
 import com.readybrains.coindesk.models.News;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
  */
 public class NewsFragment extends Fragment {
 
+    AdView newsAdView;
     private RecyclerView mRecyclerView;
     private NewsAdapter mExampleAdapter;
     private ArrayList<News> mExampleList;
@@ -50,6 +53,10 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
+
+        newsAdView = view.findViewById(R.id.newsAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        newsAdView.loadAd(adRequest);
 
         mRecyclerView = view.findViewById(R.id.news_recycler_view);
         mRecyclerView.setHasFixedSize(true);

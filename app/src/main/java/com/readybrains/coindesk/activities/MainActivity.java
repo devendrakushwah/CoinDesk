@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         }
+        if(id==R.id.action_exit){
+            finish();
+            System.exit(0);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -87,10 +91,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the Home action
-        } else if (id == R.id.nav_currency) {
-            //Handle the currency conversion here
-            Intent intent = new Intent(this, CurrencyConverter.class);
-            startActivity(intent);
         } else if (id == R.id.nav_about) {
             //Handle About us here
             Intent intent = new Intent(this, AboutActivity.class);

@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity">
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+    <EditText
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Coin Name"
+        android:inputType="text"
+        android:background="@drawable/coin_search"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColorHint="#fff"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:id="@+id/search_box"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/ic_search_white"
+        android:textCursorDrawable="@drawable/cursor_color"/>
 
-</android.support.constraint.ConstraintLayout>
+    <ListView
+        android:id="@+id/searchListView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/line"
+        />
+
+</LinearLayout>

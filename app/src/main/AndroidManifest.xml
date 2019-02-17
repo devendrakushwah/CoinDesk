@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -27,31 +28,68 @@
         </activity>
           android:theme="@style/AppTheme.NoActionBar" />
   
+=======
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8388653056574690~8920667624" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> 835488f6fcb811320a2bc5759959ac58eb880aaf
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AboutActivity"
             android:label="About"
-            android:parentActivityName=".activities.MainActivity" />
-        <activity
-            android:name=".activities.CurrencyConverter"
-            android:label="Currency Converter"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ChangelogActivity"
             android:label="Changelog"
+<<<<<<< HEAD
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.SignUpActivity"></activity>
         <activity android:name=".activities.SearchActivity">
+=======
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NewsWebView"
+            android:label="News"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+>>>>>>> 835488f6fcb811320a2bc5759959ac58eb880aaf
         </activity>
         <activity android:name=".activities.NewsWebView"></activity>
         <activity android:name=".activities.NewsWebView"></activity>
         <activity
             android:name=".activities.DetailsActivity"
-            android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.GoogleSearch"></activity>
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.GoogleSearch"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.SearchActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="Search"/>
     </application>
 
 </manifest>

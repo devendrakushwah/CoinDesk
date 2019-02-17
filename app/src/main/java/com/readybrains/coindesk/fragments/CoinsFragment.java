@@ -2,14 +2,13 @@ package com.readybrains.coindesk.fragments;
 
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.readybrains.coindesk.R;
 import com.readybrains.coindesk.adapters.CoinsAdapter;
 import com.readybrains.coindesk.models.Coins;
@@ -28,11 +29,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.readybrains.coindesk.activities.SplashActivity.DB;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CoinsFragment extends Fragment {
 
+    AdView homeAdView;
     private RecyclerView mRecyclerView;
     private CoinsAdapter mExampleAdapter;
     private ArrayList<Coins> mExampleList;
@@ -41,9 +46,7 @@ public class CoinsFragment extends Fragment {
     ProgressDialog progressBar ;
 
     public CoinsFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,30 +54,28 @@ public class CoinsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_coins, container, false);
 
+        homeAdView = view.findViewById(R.id.homeAdView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E8A954F5967725CD05B121150830F6F6").build();
+        homeAdView.loadAd(adRequest);
+
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSwipeRefreshLayout=view.findViewById(R.id.swipe_home);
-
-       progressBar = ProgressDialog.show(getContext(), "", "Loading...");
-
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
+        progressBar = ProgressDialog.show(getContext(), "", "Loading...");
         parseJSON();
-
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
                 progressBar = ProgressDialog.show(getContext(), "", "Loading...");
                 parseJSON();
-
                 mExampleList.clear();
                 mRecyclerView.removeAllViews();
                 mExampleAdapter.notifyDataSetChanged();
-
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -83,9 +84,8 @@ public class CoinsFragment extends Fragment {
     }
 
     private void parseJSON() {
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        String currency = sharedPreferences.getString("currency",null);
+       // mSwipeRefreshLayout.setRefreshing(false);
+        String currency = getActivity().getSharedPreferences(DB,MODE_PRIVATE).getString("defaultCurrency",null);
 
         String url = "http://devendra8112.pythonanywhere.com/api/get_top_coins/?exchange="+currency;
 
@@ -94,6 +94,7 @@ public class CoinsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("API","Called");
                             JSONArray jsonArray = response.getJSONArray("data");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -121,6 +122,7 @@ public class CoinsFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
                 progressBar.dismiss();
                 Snackbar.make(getActivity().findViewById(android.R.id.content),
                         "Problem with internet connection", 10000).setAction("RETRY", new View.OnClickListener() {
