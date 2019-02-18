@@ -1,3 +1,3 @@
 # CoinDesk
 
-Android app that displays cryptocurrencies and its related news to the user
+Android app that displays cryptocurrencies and its related news to the user and manages favorites.
