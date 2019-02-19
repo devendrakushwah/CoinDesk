@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You don't have any Fragments"
+        android:text="You don't have any Favourites."
         android:layout_centerInParent="true"
         android:id="@+id/fav_hint"/>
 
@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/ad_unit">
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>

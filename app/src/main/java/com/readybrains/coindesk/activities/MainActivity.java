@@ -1,6 +1,9 @@
 package com.readybrains.coindesk.activities;
 
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -9,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -76,8 +80,20 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         if(id==R.id.action_exit){
-            finish();
-            System.exit(0);
+
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Exit")
+                    .setMessage("Do you really want to exit?")
+                    .setIcon(R.drawable.ic_exit)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                            System.exit(0);
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,9 +122,28 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_share) {
             //Handle share here
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody ="Download the CoinDesk app now!!!\n Link : " ;
+            shareBody += "http://play.google.com/store/apps/details?id=" +getPackageName();
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Download CoinDesk");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
         } else if (id == R.id.nav_rate) {
-            //Handle Rate us here
+            //Handle Rate us
+            Uri uri = Uri.parse("market://details?id=" + getPackageName());
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            try {
+                startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" +getPackageName())));
+
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

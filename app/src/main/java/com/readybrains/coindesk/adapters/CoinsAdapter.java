@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +63,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
 
         final Set<String> Mainfavourites= mContext.getSharedPreferences(DB,MODE_PRIVATE).getStringSet("userFavourites",null);
 
-        Log.d("Fav",Mainfavourites.toString());
+        //Log.d("Fav",Mainfavourites.toString());
 
         holder.mTextViewName.setText(name+" ("+symbol+")");
         float price=Float.parseFloat(price_string);
@@ -100,7 +99,7 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
                     editor.commit();
                     editor.putStringSet("userFavourites",temp);
                     editor.commit();
-                    Log.d("Done",temp.toString());
+                    //Log.d("Done",temp.toString());
                     Snackbar.make(v,name+" removed from favourites",Snackbar.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                 }
@@ -113,7 +112,6 @@ public class CoinsAdapter extends RecyclerView.Adapter<CoinsAdapter.ExampleViewH
                     editor.commit();
                     editor.putStringSet("userFavourites",temp);
                     editor.commit();
-                    Log.d("Done",temp.toString());
                     Snackbar.make(v,name+" added to favourites",Snackbar.LENGTH_SHORT).show();
                 }
             }

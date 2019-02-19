@@ -55,8 +55,9 @@ public class CoinsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_coins, container, false);
 
         homeAdView = view.findViewById(R.id.homeAdView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E8A954F5967725CD05B121150830F6F6").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         homeAdView.loadAd(adRequest);
+
 
         mRecyclerView = view.findViewById(R.id.home_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -94,7 +95,6 @@ public class CoinsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.d("API","Called");
                             JSONArray jsonArray = response.getJSONArray("data");
 
                             for (int i = 0; i < jsonArray.length(); i++) {

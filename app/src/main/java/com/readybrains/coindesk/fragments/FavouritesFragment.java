@@ -57,7 +57,7 @@ public class FavouritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
 
         favouritesAdView = view.findViewById(R.id.favouritesAdView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E8A954F5967725CD05B121150830F6F6").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         favouritesAdView.loadAd(adRequest);
 
         mRecyclerView = view.findViewById(R.id.favourites_recycler_view);
