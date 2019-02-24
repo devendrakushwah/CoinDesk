@@ -128,7 +128,7 @@ public class DetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent i = new Intent(DetailsActivity.this,GoogleSearch.class);
-                                        i.putExtra("url","https://www.google.com/search?q="+name);
+                                        i.putExtra("url","https://www.google.com/search?q="+name+" "+symbol);
                                         startActivity(i);
                                     }
                                 });
