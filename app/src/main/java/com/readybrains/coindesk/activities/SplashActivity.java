@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        MobileAds.initialize(this, "ca-app-pub-9712861489294275~2554294150");
+        MobileAds.initialize(this, "ca-app-pub-6279018073176527~4192531654");
 
         relativeLayout = findViewById(R.id.splash);
         SharedPreferences.Editor editor = getSharedPreferences(DB,MODE_PRIVATE).edit();
