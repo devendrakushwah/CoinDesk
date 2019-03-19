@@ -3,6 +3,8 @@
 This is the source code repository of CoinDesk app.
 CoinDesk gives you quick access to cryptocurrency prices, details and news.
 
+[![Download](https://github.com/devendrakushwah/CoinDesk/blob/master/screens/download_btn.png)](https://github.com/devendrakushwah/CoinDesk/releases)
+
 ## Screenshots : 
 ![Screenshot](https://github.com/devendrakushwah/CoinDesk/blob/master/screens/screenshot.jpg)
 
