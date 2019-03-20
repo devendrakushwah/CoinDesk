@@ -46,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
-        android:text="Created by ReadyBrains"
+        android:text="Created by Devendra Kushwah"
         android:textColor="@color/colorPrimaryDark"/>
 
 
